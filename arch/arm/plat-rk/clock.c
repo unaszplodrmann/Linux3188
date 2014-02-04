@@ -1,4 +1,3 @@
-/*$_FOR_ROCKCHIP_RBOX_$*/
 /* linux/arch/arm/mach-rk30/clock.c
  *
  * Copyright (C) 2012 ROCKCHIP, Inc.
