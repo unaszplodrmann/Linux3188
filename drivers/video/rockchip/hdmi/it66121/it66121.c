@@ -39,7 +39,7 @@ static void it66121_irq_work_func(struct work_struct *work)
 
 	if(it66121->enable) {
 		it66121_poll_status(hdmi);
-		queue_delayed_work(it66121->workqueue, &it66121->delay_work, 50);
+		queue_delayed_work(it66121->workqueue, &it66121->delay_work, msecs_to_jiffies(50));
 	}
 }
 
@@ -52,7 +52,7 @@ static irqreturn_t it66121_detect_irq(int irq, void *dev_id)
 static int it66121_enable(struct hdmi *hdmi)
 {
 	it66121->enable = 1;
-	queue_delayed_work(it66121->workqueue, &it66121->delay_work, 50);
+	queue_delayed_work(it66121->workqueue, &it66121->delay_work, msecs_to_jiffies(50));
 	return 0;
 }
 
@@ -108,6 +108,7 @@ static int it66121_i2c_probe(struct i2c_client *client,const struct i2c_device_i
     }
 	it66121->client = client;
 	it66121->io_irq_pin = client->irq;
+	it66121->enable = 1;
 	i2c_set_clientdata(client, it66121);
 	
 	it66121_property.name = (char*)client->name;
